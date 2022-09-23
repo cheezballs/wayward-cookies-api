@@ -38,4 +38,4 @@ jobs:
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
           port: ${{ secrets.PORT }}
-          script: sudo bash /deploy/wayward-cookies/wayward-refresh.sh
+          script: bash /deploy/wayward-cookies/wayward-refresh.sh
