@@ -19,4 +19,13 @@ public enum OrderStatus {
     OrderStatus(String code) {
         this.code = code;
     }
+
+    public static OrderStatus findForCode(String code) {
+        for (OrderStatus status : values()) {
+            if (code.equals(status.code)) {
+                return status;
+            }
+        }
+        return null;
+    }
 }

@@ -1,5 +1,7 @@
 package us.mattroberts.waywardcookies.model.entity;
 
+import lombok.Getter;
+import lombok.Setter;
 import us.mattroberts.waywardcookies.model.decode.OrderStatus;
 
 import javax.persistence.*;
@@ -8,6 +10,8 @@ import java.util.Set;
 
 @Entity
 @Table(name = "ww_order")
+@Getter
+@Setter
 public class Order {
 
     @Id
@@ -19,6 +23,7 @@ public class Order {
     private String phone;
     private String orderDetails;
     private Integer cookieQuantity;
+    @Column(name = "status_code")
     private OrderStatus status;
     private String statusDetails;
     private Boolean paid;
@@ -29,7 +34,7 @@ public class Order {
     private LocalDateTime cancelDate;
 
     @OneToOne(mappedBy = "order", cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER, optional = false)
+            fetch = FetchType.EAGER)
     private Logistics logistics;
 
     @OneToMany

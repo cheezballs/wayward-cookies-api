@@ -8,4 +8,5 @@ public interface OrderService {
 
     List<Order> fetchAllOrders();
 
+    Order saveOrder(Order order);
 }
