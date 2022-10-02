@@ -11,4 +11,13 @@ public enum LogisticsType {
     LogisticsType(String code) {
         this.code = code;
     }
+
+    public static LogisticsType findForCode(String code) {
+        for (LogisticsType status : values()) {
+            if (code.equals(status.code)) {
+                return status;
+            }
+        }
+        return null;
+    }
 }

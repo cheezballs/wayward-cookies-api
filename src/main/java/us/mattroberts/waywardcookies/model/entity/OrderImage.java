@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class OrderImage {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private Integer orderId;
     private String filePath;

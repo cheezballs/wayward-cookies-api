@@ -20,7 +20,7 @@ create table ww_order (
 
 create table ww_order_logistics (
     id int auto_increment not null,
-    type_code char(1),
+    type_code char(1) not null,
     details varchar(1000),
     address varchar(250),
     address_2 varchar(250),
