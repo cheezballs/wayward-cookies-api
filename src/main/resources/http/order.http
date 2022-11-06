@@ -1,0 +1,45 @@
+### Get All Orders
+
+GET {{baseUrl}}/orders
+Content-Type: application/json
+Authorization: Basic {{adminUsername}} {{adminPassword}}
+
+### Get Order By ID
+
+GET {{baseUrl}}/orders/5
+Content-Type: application/json
+Authorization: Basic {{adminUsername}} {{adminPassword}}
+
+### Create New Order
+
+POST {{baseUrl}}/orders
+Content-Type: application/json
+Authorization: Basic {{adminUsername}} {{adminPassword}}
+
+{
+  "firstName": "Jeb",
+  "lastName": "Jebberson",
+  "email": "jeb@cookiemafia.com",
+  "phone": "1231231233",
+  "orderDetails": "This guy is a great customer. Once he tipped me in a solid gold coin.",
+  "status": "AC",
+  "statusDetails": "I promised not to run over his dog this time.",
+  "paid": false
+}
+
+### Update An Order
+
+PUT {{baseUrl}}/orders/5
+Content-Type: application/json
+Authorization: Basic {{adminUsername}} {{adminPassword}}
+
+{
+  "firstName": "Jeb",
+  "lastName": "Jebberson",
+  "email": "jeb@cookiemafia.com",
+  "phone": "1231231233",
+  "orderDetails": "This guy is a great customer. Once he tipped me in a solid gold coin.",
+  "status": "AC",
+  "statusDetails": "I promised not to run over his dog this time.",
+  "paid": false
+}

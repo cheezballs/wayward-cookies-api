@@ -28,6 +28,14 @@ public class OrderController {
         return new ResponseEntity<>(mapOrders(orderService.fetchAllOrders()), HttpStatus.OK);
     }
 
+    @GetMapping("/orders/{id}")
+    public ResponseEntity<OrderDto> getOrder(@PathVariable int id) {
+        OrderDto orderDto = new OrderDto();
+        Order order = orderService.fetchById(id);
+        orderDto.mapFromEntity(order);
+        return new ResponseEntity<>(orderDto, HttpStatus.OK);
+    }
+
     @PostMapping(value = "/orders")
     public ResponseEntity<OrderDto> createOrder(@RequestBody @Valid OrderInput orderInput) {
         Order order = new Order();
