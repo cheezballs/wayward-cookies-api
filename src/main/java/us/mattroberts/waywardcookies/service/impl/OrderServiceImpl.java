@@ -18,7 +18,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<Order> fetchAllOrders() {
-        return orderRepository.findAll();
+        return orderRepository.findByOrderByDueDateAsc();
     }
 
     @Override
