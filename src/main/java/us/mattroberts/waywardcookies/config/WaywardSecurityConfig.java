@@ -1,5 +1,6 @@
 package us.mattroberts.waywardcookies.config;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
+@Slf4j
 @Configuration
 public class WaywardSecurityConfig {
 
@@ -42,6 +44,7 @@ public class WaywardSecurityConfig {
                 .password("{noop}" + adminPassword)
                 .roles("ADMIN")
                 .build();
+        log.debug("CREDENTIALS: " + user.getUsername() + " " + user.getPassword());
         return new InMemoryUserDetailsManager(user);
     }
 }
