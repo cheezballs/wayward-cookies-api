@@ -32,12 +32,12 @@
         </rollingPolicy>
     </appender>
 
-    <root level="warn">
+    <root level="INFO">
         <appender-ref ref="RollingFile"/>
         <appender-ref ref="Console"/>
     </root>
 
-    <logger name="us.mattroberts" level="debug" additivity="false">
+    <logger name="us.mattroberts" level="INFO" additivity="false">
         <appender-ref ref="RollingFile"/>
         <appender-ref ref="Console"/>
     </logger>
