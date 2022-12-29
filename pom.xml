@@ -10,7 +10,7 @@
     </parent>
     <groupId>us.mattroberts</groupId>
     <artifactId>wayward-cookies-api</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.1.0</version>
     <name>Wayward Cookies API</name>
     <description>API for Wayward Cookies</description>
     <properties>
@@ -28,6 +28,10 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

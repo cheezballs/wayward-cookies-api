@@ -20,6 +20,7 @@ create table ww_order (
 
 create table ww_order_logistics (
     id int auto_increment not null,
+    order_id int not null,
     type_code char(1) not null,
     details varchar(1000),
     address varchar(250),
@@ -31,7 +32,7 @@ create table ww_order_logistics (
     shipped_date datetime,
 
     primary key (id),
-    foreign key (id) references ww_order (id)
+    foreign key (order_id) references ww_order (id)
 );
 
 create table ww_order_image (

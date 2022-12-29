@@ -22,9 +22,12 @@ Authorization: Basic {{adminUsername}} {{adminPassword}}
   "email": "jeb@cookiemafia.com",
   "phone": "1231231233",
   "orderDetails": "This guy is a great customer. Once he tipped me in a solid gold coin.",
-  "status": "AC",
   "statusDetails": "I promised not to run over his dog this time.",
-  "paid": false
+  "paid": false,
+  "logistics": {
+    "logisticsType": "P",
+    "details": "Bring it to me."
+  }
 }
 
 ### Update An Order

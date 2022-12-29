@@ -4,7 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 import us.mattroberts.waywardcookies.model.entity.Order;
 
-import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 @Getter
@@ -21,11 +22,11 @@ public class OrderDto {
     private String status;
     private String statusDetails;
     private boolean paid;
-    private LocalDateTime dueDate;
-    private LocalDateTime lastUpdatedDate;
-    private LocalDateTime createdDate;
-    private LocalDateTime completeDate;
-    private LocalDateTime cancelDate;
+    private long dueDate;
+    private long lastUpdatedDate;
+    private long createdDate;
+    private long completeDate;
+    private long cancelDate;
     private LogisticsDto logistics;
     private List<OrderImageDto> images;
 
@@ -40,11 +41,29 @@ public class OrderDto {
         status = order.getStatus().getCode();
         statusDetails = order.getStatusDetails();
         paid = order.isPaid();
-        dueDate = order.getDueDate();
-        lastUpdatedDate = order.getLastUpdatedDate();
-        createdDate = order.getCreatedDate();
-        completeDate = order.getCompleteDate();
-        cancelDate = order.getCancelDate();
+
+        ZonedDateTime zdt = ZonedDateTime.of(order.getCreatedDate(), ZoneId.systemDefault());
+        createdDate = zdt.toInstant().toEpochMilli();
+
+        if (order.getCompleteDate() != null) {
+            zdt = ZonedDateTime.of(order.getCompleteDate(), ZoneId.systemDefault());
+            completeDate = zdt.toInstant().toEpochMilli();
+        }
+
+        if (order.getDueDate() != null) {
+            zdt = ZonedDateTime.of(order.getDueDate(), ZoneId.systemDefault());
+            dueDate = zdt.toInstant().toEpochMilli();
+        }
+
+        if (order.getLastUpdatedDate() != null) {
+            zdt = ZonedDateTime.of(order.getLastUpdatedDate(), ZoneId.systemDefault());
+            lastUpdatedDate = zdt.toInstant().toEpochMilli();
+        }
+
+        if (order.getCancelDate() != null) {
+            zdt = ZonedDateTime.of(order.getCancelDate(), ZoneId.systemDefault());
+            cancelDate = zdt.toInstant().toEpochMilli();
+        }
 
         if (order.getLogistics() != null) {
             logistics = new LogisticsDto();

@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.Size;
-import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -30,7 +29,7 @@ public class LogisticsInput {
 
     @Size(max = 15)
     private String zip;
-    
-    private LocalDateTime deliveryDate;
-    private LocalDateTime shippedDate;
+
+    private Long deliveryDate;
+    private Long shippedDate;
 }

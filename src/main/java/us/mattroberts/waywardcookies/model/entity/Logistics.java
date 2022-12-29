@@ -5,7 +5,9 @@ import us.mattroberts.waywardcookies.model.decode.LogisticsType;
 import us.mattroberts.waywardcookies.model.input.LogisticsInput;
 
 import javax.persistence.*;
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 @Entity
 @Getter
@@ -28,8 +30,16 @@ public class Logistics {
     private LocalDateTime shippedDate;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "order_id")
     private Order order;
+
+    public Logistics(Order order) {
+        this.order = order;
+    }
+
+    public Logistics() {
+
+    }
 
     public void updateData(LogisticsInput input) {
         logisticsType = LogisticsType.findForCode(input.getLogisticsType());
@@ -39,8 +49,16 @@ public class Logistics {
         city = input.getCity();
         state = input.getState();
         zip = input.getZip();
-        deliveryDate = input.getDeliveryDate();
-        shippedDate = input.getShippedDate();
+        deliveryDate = mapDate(input.getDeliveryDate());
+        shippedDate = mapDate(input.getShippedDate());
+    }
+
+    private LocalDateTime mapDate(Long date) {
+        if (date != null && date > 0) {
+            return Instant.ofEpochMilli(date).atZone(ZoneId.systemDefault()).toLocalDateTime();
+        } else {
+            return null;
+        }
     }
 
 }

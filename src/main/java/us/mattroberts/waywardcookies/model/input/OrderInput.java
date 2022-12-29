@@ -7,7 +7,6 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -36,11 +35,10 @@ public class OrderInput {
     private String status;
     private String statusDetails;
     private boolean paid;
-    private LocalDateTime dueDate;
-    private LocalDateTime lastUpdatedDate;
-    private LocalDateTime createdDate;
-    private LocalDateTime completeDate;
-    private LocalDateTime cancelDate;
+    private Long dueDate;
+    private Long lastUpdatedDate;
+    private Long completeDate;
+    private Long cancelDate;
 
     private LogisticsInput logistics;
 

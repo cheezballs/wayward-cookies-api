@@ -2,6 +2,7 @@ package us.mattroberts.waywardcookies.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -9,6 +10,7 @@ import us.mattroberts.waywardcookies.model.decode.OrderStatus;
 import us.mattroberts.waywardcookies.model.dto.OrderDto;
 import us.mattroberts.waywardcookies.model.entity.Order;
 import us.mattroberts.waywardcookies.model.input.OrderInput;
+import us.mattroberts.waywardcookies.service.EmailService;
 import us.mattroberts.waywardcookies.service.OrderService;
 
 import javax.validation.Valid;
@@ -22,6 +24,12 @@ public class OrderController {
 
     @Autowired
     private OrderService orderService;
+
+    @Autowired
+    private EmailService emailService;
+
+    @Value("${email.notifications}")
+    private boolean emailNotifications;
 
     @GetMapping("/orders")
     public ResponseEntity<List<OrderDto>> getAllOrders() {
@@ -48,6 +56,15 @@ public class OrderController {
 
         order = orderService.saveOrder(order);
         response.mapFromEntity(order);
+
+        if (emailNotifications) {
+            try {
+                emailService.notifyNewOrder(order);
+            } catch (Exception exc) {
+                // dont hold up responding due to an email failure
+                log.error(exc.getMessage(), exc);
+            }
+        }
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }

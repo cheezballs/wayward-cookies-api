@@ -6,7 +6,9 @@ import us.mattroberts.waywardcookies.model.decode.OrderStatus;
 import us.mattroberts.waywardcookies.model.input.OrderInput;
 
 import javax.persistence.*;
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 @Entity
 @Table(name = "ww_order")
@@ -45,22 +47,32 @@ public class Order {
         lastName = input.getLastName();
         email = input.getEmail();
         phone = input.getPhone();
+        phone = phone.replace(".", "");
         orderDetails = input.getOrderDetails();
         cookieQuantity = input.getCookieQuantity();
         if (input.getStatus() != null) {
             status = OrderStatus.findForCode(input.getStatus());
         }
+        statusDetails = input.getStatusDetails();
         paid = input.isPaid();
-        dueDate = input.getDueDate();
-        lastUpdatedDate = input.getLastUpdatedDate();
-        completeDate = input.getCompleteDate();
-        cancelDate = input.getCancelDate();
+        dueDate = mapDate(input.getDueDate());
+        lastUpdatedDate = mapDate(input.getLastUpdatedDate());
+        completeDate = mapDate(input.getCompleteDate());
+        cancelDate = mapDate(input.getCancelDate());
 
         if (input.getLogistics() != null) {
             if (logistics == null) {
-                logistics = new Logistics();
+                logistics = new Logistics(this);
             }
             logistics.updateData(input.getLogistics());
+        }
+    }
+
+    private LocalDateTime mapDate(Long date) {
+        if (date != null && date > 0) {
+            return Instant.ofEpochMilli(date).atZone(ZoneId.systemDefault()).toLocalDateTime();
+        } else {
+            return null;
         }
     }
 }

@@ -4,7 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 import us.mattroberts.waywardcookies.model.entity.Logistics;
 
-import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 
 @Getter
 @Setter
@@ -18,8 +19,8 @@ public class LogisticsDto {
     private String city;
     private String state;
     private String zip;
-    private LocalDateTime deliveryDate;
-    private LocalDateTime shippedDate;
+    private long deliveryDate;
+    private long shippedDate;
 
     public void mapFromEntity(Logistics logistics) {
         this.setId(logistics.getId());
@@ -30,7 +31,16 @@ public class LogisticsDto {
         this.setCity(logistics.getCity());
         this.setState(logistics.getState());
         this.setZip(logistics.getZip());
-        this.setDeliveryDate(logistics.getDeliveryDate());
-        this.setShippedDate(logistics.getShippedDate());
+
+        ZonedDateTime zdt;
+        if (logistics.getDeliveryDate() != null) {
+            zdt = ZonedDateTime.of(logistics.getDeliveryDate(), ZoneId.systemDefault());
+            this.setDeliveryDate(zdt.toInstant().toEpochMilli());
+        }
+
+        if (logistics.getShippedDate() != null) {
+            zdt = ZonedDateTime.of(logistics.getShippedDate(), ZoneId.systemDefault());
+            this.setShippedDate(zdt.toInstant().toEpochMilli());
+        }
     }
 }

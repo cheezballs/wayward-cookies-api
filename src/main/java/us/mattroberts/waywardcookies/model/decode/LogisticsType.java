@@ -5,7 +5,9 @@ import lombok.Getter;
 @Getter
 public enum LogisticsType {
     DELIVERY("D"),
-    SHIPPING("S");
+    SHIPPING("S"),
+    PICKUP("P");
+
     private final String code;
 
     LogisticsType(String code) {
